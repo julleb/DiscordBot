@@ -21,8 +21,8 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
     fs.readFile('DATA', 'utf8', function(err, contents) {
 	dataWords = contents.toString().split("\n");
-	//console.log(dataWords);	
-	
+	//console.log(dataWords);
+
     });
 });
 
@@ -56,7 +56,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-       
+
         args = args.splice(1);
         switch(cmd) {
             case 'ping':
@@ -86,25 +86,25 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 function voicePls(bot, userId) {
 	file = "test.mp3";
 	id = findVoiceChannelOfUser(userId);
-	 
+
 	id = "386464621839515649";
 	bot.getAudioContext(id, function(err, stream) {
 		if(err) {
 			console.log("error");
 		}
 		console.log("hello " + id);
-			
+
 		playing = fs.createReadStream(file);
 		//console.log(playing);
-		
+
 		playing.pipe(stream, {end: false});
 		if(err) {
 			console.log("errror in pipe: " + err);
 		}
 		stream.on("done", function () {
-	
+
 		});
-		
+
 
 	});
 }
@@ -115,11 +115,13 @@ function prediction(bot, channelId) {
 	aktie = aktier[aktieId];
         var val = Math.floor(Math.random() * 2);
 	var uppEllerNer = "upp";
+	var kopEllerSalj = "köp";
 	if(val == 0) {
 		uppEllerNer = "ner";
+		kopEllerSalj = "sälj";
 	}
 	var procentValue = Math.floor(Math.random() * 10000);
-	var prediction = "Jag tror att " + aktie + " kommer att gå " + uppEllerNer + " med " + procentValue + "% denna vecka. Så köp guys!";
+	var prediction = "Jag tror att " + aktie + " kommer att gå " + uppEllerNer + " med " + procentValue + "% denna vecka. Så " + kopEllerSalj + " guys!";
 	sendMsg(bot, prediction, channelId);
 }
 
@@ -135,7 +137,7 @@ var intervalOne = 0;
 var insecureInterval = 0;
 function activateTalk(bot, channelID) {
 	if(intervalOne == 0) {
-		
+
 		sendMsg(bot, "csgo?", channelID);
 		intervalOne = setInterval(function() {
 		var index = Math.floor(Math.random() * dataWords.length);
@@ -146,17 +148,17 @@ function activateTalk(bot, channelID) {
 		sendMsg(bot, "brb, ska dra o köpa glass", channelID);
 		clearInterval(intervalOne);
 		intervalOne = 0;
-	}	
+	}
 
 	if(insecureInterval == 0) {
 		//varje 30 mins
-		var insecureMsgs = ["nån här?", "hallå?", "games?", "town?", "csgo?"];	
+		var insecureMsgs = ["nån här?", "hallå?", "games?", "town?", "csgo?"];
 		insecureInterval = setInterval(function() {
 		var index = Math.floor(Math.random() * insecureMsgs.length)
 		msg = insecureMsgs[index];
 		sendMsg(bot,msg,channelID);
 		}, 1000*60*30);
-	}	
+	}
 
 }
 
