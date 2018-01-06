@@ -84,7 +84,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 function voicePls(bot, userId) {
-	file = "test.mp3";
+	var audioId =  Math.floor(Math.random() * 5) + 1;
+	file = "audio/werran"+audio+".wav";
 	id = findVoiceChannelOfUser(userId);
 
 	id = "386464621839515649";
