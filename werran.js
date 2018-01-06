@@ -139,6 +139,7 @@ function activateTalk(bot, channelID) {
 	if(intervalOne == 0) {
 
 		sendMsg(bot, "csgo?", channelID);
+		voicePls(bot,"386464621839515649");
 		intervalOne = setInterval(function() {
 		var index = Math.floor(Math.random() * dataWords.length);
 		msg = dataWords[index];
