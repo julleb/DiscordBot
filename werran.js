@@ -103,7 +103,7 @@ function voicePls(bot, userId) {
 			console.log("errror in pipe: " + err);
 		}
 		stream.on("done", function () {
-
+			console.log("Streaming audio is done");
 		});
 
 
