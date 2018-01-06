@@ -65,7 +65,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: 'Pong!'
                 });
 		break;
-	    case 'prediction':
+	    case 'werran':
 		var index = Math.floor(Math.random() * dataWords.length);
 		sendMsg(bot, dataWords[index], channelID);
 		break;
@@ -74,6 +74,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 		break;
 	    case 'voice':
 		voicePls(bot, userID);
+	    break;
+	    case 'prediction':
+		prediction(bot, channelID);
 	    break;
             // Just add any case commands if you want to..
          }
@@ -104,6 +107,20 @@ function voicePls(bot, userId) {
 		
 
 	});
+}
+
+function prediction(bot, channelId) {
+	var aktier = ["SEB", "Brighter", "Bitcoin", "Ripple", "Litecoin", "Maha Energi"];
+	var aktieId = Math.floor(Math.random() * aktier.length);
+	aktie = aktier[aktieId];
+        var val = Math.floor(Math.random() * 2);
+	var uppEllerNer = "upp";
+	if(val == 0) {
+		uppEllerNer = "ner";
+	}
+	var procentValue = Math.floor(Math.random() * 10000);
+	var prediction = "Jag tror att " + aktie + " kommer att gå " + uppEllerNer + " med " + procentValue + "% denna vecka. Så köp guys!";
+	sendMsg(bot, prediction, channelId);
 }
 
 function sendMsg(bot, msg, channelID) {
